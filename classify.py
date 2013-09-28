@@ -13,11 +13,12 @@ Author: Jussi Tiira <jussi.tiira@helsinki.fi>
 License: GPL v3
 """
 
+import os
 from optparse import OptionParser
 
 def main():
     parser = OptionParser()
-    parser.add_option("-d", "--inputdir", dest="inputdir", default=".",
+    parser.add_option("-d", "--inputdir", dest="inputdir", default=os.getcwd(),
                       help="use PATH as input directory", metavar="PATH")
                       
     (options,args) = parser.parse_args()
