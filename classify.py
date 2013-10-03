@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
 IC-PCA2
@@ -8,12 +8,12 @@ A complete rewrite in Python 3
 Based on the original IC-PCA Matlab tool by Hannakaisa Lindqvist, Jussi Tiira
 and Hanne Hakkarainen
 
-Author: Jussi Tiira <jussi.tiira@helsinki.fi>
+@author: Jussi Tiira <jussi.tiira@helsinki.fi>
 
 License: GPL v3
 """
 
-import os
+import os, glob, configparser
 from optparse import OptionParser
 
 def main():
@@ -23,7 +23,15 @@ def main():
                       
     (options,args) = parser.parse_args()
     
-    print(options.inputdir)
+    config = configparser.ConfigParser()
+    config['DEFAULT'] = {'InputFilenames': '*.jpg'}
+    with open('classify.conf', 'w') as configfile:
+        config.write(configfile)
+    
+    config.read('classify.conf')
+    
+    files = glob.glob(os.path.join(options.inputdir,config['DEFAULT']['InputFilenames']))
+    print(files)
     
 if __name__ == "__main__":
     main()
